@@ -94,12 +94,14 @@ class UnityConstantMasterNode:
         return False
 
     def _update_background_resonance(self):
-        current_time_ns = time.time_ns()
-        theta = (current_time_ns * self.resonance_freq) % (2 * np.pi)
-        rotation_matrix = np.array(
-            [[np.cos(theta), -np.sin(theta)], [np.sin(theta), np.cos(theta)]]
-        )
+        t = time.time()
+        theta = (t * self.resonance_freq) % (2 * np.pi)
+        rotation_matrix = np.array([
+            [np.cos(theta), -np.sin(theta)],
+            [np.sin(theta), np.cos(theta)]
+        ])
         self.psi = np.dot(rotation_matrix, self.psi)
+
 
     def broadcast_quasar_frequency(self):
         print(f"[BROADCAST] Pulsing Quasar Frequency: {self.resonance_freq} Hz")
