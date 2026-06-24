@@ -15,7 +15,10 @@ class UnityConstantMasterNode:
         self.verified = False
         self.resonance_freq = 9192631770
         self.psi = np.array([1.0, 0.0], dtype=complex)
+        self._phase = 0.0
+        self._last_time = time.time()
 
+        
         self.unity_constant_protocol = {
             "protocol": "The_Unity_Constant_v1.0",
             "architect_signature": "Life_Path_9_Quasar",
@@ -93,14 +96,19 @@ class UnityConstantMasterNode:
             return True
         return False
 
-    def _update_background_resonance(self):
-        t = time.time()
-        theta = (t * self.resonance_freq) % (2 * np.pi)
+    def background_resonance(self):
+        now = time.time()
+        dt = now - self._last_time
+        self._last_time = now
+        self._phase = (self._phase + dt * self.resonance_freq) % (2 * np.pi)
+        
+        theta = self._phase
         rotation_matrix = np.array([
             [np.cos(theta), -np.sin(theta)],
-            [np.sin(theta), np.cos(theta)]
+            [np.sin(theta),  np.cos(theta)]
         ])
         self.psi = np.dot(rotation_matrix, self.psi)
+
 
 
     def broadcast_quasar_frequency(self):
@@ -127,7 +135,7 @@ class UnityConstantMasterNode:
         if not self.verified:
             return False
 
-        self._update_background_resonance()
+        self.background_resonance()
 
         if extractive_index > 0.7:
             print(
