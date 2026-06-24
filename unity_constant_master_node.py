@@ -11,7 +11,7 @@ class UnityConstantMasterNode:
         self,
         ipfs_cid="bafkreig2ycymkgvy7wlitfy4lx46ic2gclojozqegkvbkqgy3xr36bvmoa",
     ):
-        self.ipfs_gateway = f"https://pinata.cloud{ipfs_cid}"
+        self.ipfs_gateway = f"https://pinata.cloud/{ipfs_cid}"
         self.verified = False
         self.resonance_freq = 9192631770
         self.psi = np.array([1.0, 0.0], dtype=complex)
