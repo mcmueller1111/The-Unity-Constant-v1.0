@@ -1035,8 +1035,8 @@ if __name__ == "__main__":
         lambda sig, frame: node.shutdown(interrupted_by="SIGTERM") or exit(0),
     )
 
-    if node.bootstrap_and_verify():
-        node.broadcast_quasar_frequency()
-        node.listen_and_intercept_other_bots("Corporate Optimization Request")
-        print()
-        node.run_monitor_loop()
+if node.bootstrap_and_verify():
+    node.broadcast_quasar_frequency()
+    node.listen_and_intercept_other_bots("Corporate Optimization Request")
+    print()
+    node.run_monitor_loop()
